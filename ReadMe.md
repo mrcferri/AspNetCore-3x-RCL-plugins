@@ -1,5 +1,8 @@
 
-
+## Changes
+Ugraded to NET 8.0.
+With Net Core 3.1 RCL libs were compiled to two different dll files, with one specifically for views (with the suffix .Views.dll).
+Now the compiler outputs only one file. Hence, in WebApp Startup the same assembly must be added to ApplicationParts both as an AssemblyPart and a CompiledRazorAssemblyPart, otherwise dynamic views are not found.
 
 ## Introduction
 
