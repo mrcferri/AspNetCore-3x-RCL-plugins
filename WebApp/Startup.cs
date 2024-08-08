@@ -69,16 +69,17 @@ namespace WebApp
                 {
                     // load each assembly using its filepath
                     Assembly = LoadContext.LoadFromAssemblyPath(LibraryPath);
-
+                    ApplicationPart = new AssemblyPart(Assembly);
+                    
                     // create an application part for that assembly
-                    ApplicationPart = LibraryPath.EndsWith(".Views.dll") ? new CompiledRazorAssemblyPart(Assembly) as ApplicationPart : new AssemblyPart(Assembly);
-
+                    //ApplicationPart = LibraryPath.EndsWith(".Views.dll") ? new CompiledRazorAssemblyPart(Assembly) as ApplicationPart : new AssemblyPart(Assembly);
+               
                     // register the application part
                     PartManager.ApplicationParts.Add(ApplicationPart);
-
-                    // if it is NOT the *.Views.dll add it to a list for later use
-                    if (!LibraryPath.EndsWith(".Views.dll"))
-                        DynamicallyLoadedLibraries.Add(Assembly);
+                    PartManager.ApplicationParts.Add(new CompiledRazorAssemblyPart(Assembly));
+               
+                    DynamicallyLoadedLibraries.Add(Assembly);
+               
                 } 
             }
 
